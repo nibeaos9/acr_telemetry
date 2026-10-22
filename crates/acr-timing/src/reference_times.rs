@@ -52,7 +52,7 @@ mod tests {
             ReferenceTimeMode::BestStage
         );
         assert_eq!(
-            ReferenceTimeMode::parse("BestSubsector"),
+            ReferenceTimeMode::parse("best_subsector"),
             ReferenceTimeMode::BestSubsector
         );
     }

@@ -487,8 +487,8 @@ mod tests {
     fn consistent_motion_ok() {
         let cfg = TimingQualityConfig::default();
         let mut prev = tick(1, 0.0, 0.0, (10.0, 0.0, 0.0));
-        let mut curr = tick(2, 0.03, 0.0, (10.0, 0.0, 0.0));
-        prev.at = Instant::now() - Duration::from_millis(3);
+        let mut curr = tick(2, 0.2, 0.0, (10.0, 0.0, 0.0));
+        prev.at = Instant::now() - Duration::from_millis(20);
         curr.at = Instant::now();
         let c = evaluate_tick(&prev, &curr, &cfg);
         assert!(!c.is_suspect());
