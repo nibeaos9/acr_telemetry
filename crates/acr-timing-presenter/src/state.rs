@@ -366,7 +366,7 @@ mod tests {
         })));
         let lines = p.osd_lines(false, &DeltaDisplayConfig::default(), None);
         assert_eq!(lines.len(), 2);
-        assert!(lines[0].starts_with("S1:"));
+        assert_eq!(lines[0], "[1:30.00 +0.50]");
         assert!(lines[1].contains("Track completed"));
         assert!(lines[1].contains("cum:"));
         assert!(lines[1].contains("delta:"));
@@ -406,6 +406,7 @@ mod tests {
         assert_eq!(p.osd_cumulative_delta_sec(DeltaScope::Stage), Some(5.901));
     }
 
+    #[test]
     fn finish_carousel_cycles_sectors() {
         let mut p = PresenterState::default();
         for (ix, tot) in [(0, 90.0), (1, 80.0), (2, 70.0)] {
@@ -429,12 +430,12 @@ mod tests {
         let mut cfg = DeltaDisplayConfig::default();
         cfg.sector_recap_sec = 5.0;
         let lines = p.osd_lines(false, &cfg, None);
-        assert!(lines[0].starts_with("S1:"));
+        assert_eq!(lines[0], "[1:30.00 +0.00]");
         p.finish_carousel_at = Some(Instant::now() - std::time::Duration::from_secs(6));
         let lines = p.osd_lines(false, &cfg, None);
-        assert!(lines[0].starts_with("S2:"));
+        assert_eq!(lines[0], "[1:20.00 +0.00]");
         p.finish_carousel_at = Some(Instant::now() - std::time::Duration::from_secs(11));
         let lines = p.osd_lines(false, &cfg, None);
-        assert!(lines[0].starts_with("S3:"));
+        assert_eq!(lines[0], "[1:10.00 +0.00]");
     }
 }
